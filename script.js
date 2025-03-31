@@ -2,19 +2,20 @@ const ONLY_BEST_RESULT = 1
 const COUNTER = 2
 
 //Modes
-const MODE_ALL_RESULTS = 0
-const MODE_BEST_RESULT = ONLY_BEST_RESULT
-const MODE_BEST_RESULT_AND_COUNTER = ONLY_BEST_RESULT | COUNTER
+const ALL_RESULTS = 0
+const BEST_RESULT = ONLY_BEST_RESULT
+const BEST_RESULT_AND_COUNTER = ONLY_BEST_RESULT | COUNTER
 
+// Manual settings
 const FIRST_ROW = 7
 const SHEET_QUEUE_NAME = "Kolejka"
 const SHEET_QUEUE_ROW_COLORS = {8: "#ADBCE6", 9: "#00FF00", 10: "#808080"}
-const MODE_DISPLAY_RESULT = MODE_BEST_RESULT_AND_COUNTER;
-const COLUMNS_REFRESH_RESULTS_SHEET = [2, 3, 5]
-const COLUMNS_SET_DATE = [[[2, 3], 8, false], [[4], 9, false], [[5], 10, false], [[1,2,3,4,5], 14, true]] // [W jakiej kolumnie musi być zmiana, gdize będzie zapisana data, czy nadpisać już zapisaną datę]
+const MODE_DISPLAY_RESULT = BEST_RESULT_AND_COUNTER;
+const REFRESHING_COLUMNS = [2, 3, 5]
+const COLUMNS_SET_DATE = [[[2, 3], 8, false], [[4], 9, false], [[5], 10, false], [[1,2,3,4,5], 14, true]] 
 const QUEUE_ROW_WIDTH = 14
-const COLUMNS_WITH_RESULTS = [[2, true, false, true], [3, true, false, true], [5, false, 1, false]] //Numer kolumny w której jest resultat, czy kolumna identyfikuje gracza, czy kolumna służy do porówniania wyników jak nie to false jak tak to cyfra od 1 w górę im wyższa tym ważniejsza kolumna), czy może być pusta komórka
-const COLUMN_WITH_CATEGORY_OR_CATEGORY = "Wyniki" //numer kolumny w której jest kategoria lub kategoria
+const COLUMNS_WITH_RESULTS = [[2, true, false, true], [3, true, false, true], [5, false, 1, false]] 
+const CATEGORIES = "Wyniki"
 
 
 function onEdit(e) {
@@ -35,7 +36,7 @@ function onEditQueue(e) {
     if(!list_col.includes(column)) continue;
     onEditQueue_setDate(e, date_col, list_col, always_replace)
   }
-  if(COLUMNS_REFRESH_RESULTS_SHEET.includes(column)) {
+  if(REFRESHING_COLUMNS.includes(column)) {
     onEditQueue_addResultToSheet(e)
   }
 
@@ -93,9 +94,9 @@ function onEditQueue_addResultToSheet(e) {
       if(!c[3] && row[c[0]-1] === "") return;
     }
 
-    var category = COLUMN_WITH_CATEGORY_OR_CATEGORY
-    if(Number.isInteger(COLUMN_WITH_CATEGORY_OR_CATEGORY)) {
-      category = row[COLUMN_WITH_CATEGORY_OR_CATEGORY-1]
+    var category = CATEGORIES
+    if(Number.isInteger(CATEGORIES)) {
+      category = row[CATEGORIES-1]
     }
 
     if(!(category in results)) {
