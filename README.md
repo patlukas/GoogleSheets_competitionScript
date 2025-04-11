@@ -53,3 +53,4 @@ Aby wypróbować, należy zaimportować plik `.ods` w Google Sheets, a następni
 | Nazwa przykładu | Opis |
 |----------------|------|
 | [`1_Two_categories`](examples/1_Two_categories) | 2 kategorie do wyboru i kolumna "Imię i nazwisko"; pokazywany jest tylko najlepszy wynik gracza (`BEST_RESULT_AND_COUNTER`) oraz liczba rozegranych gier. |
+| [`2_One_category`](examples/2_One_category) | Jedna kategoria i kolumny "Imię i nazwisko", "Miasto"; pokazywany jest tylko najlepszy wynik gracza (`BEST_RESULT_AND_COUNTER`) oraz liczba rozegranych gier. |
